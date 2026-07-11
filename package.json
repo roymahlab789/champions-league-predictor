@@ -1,0 +1,21 @@
+{
+  "name": "champions-league-predictor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+  "start": "node server.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roymahlab789/champions-league-predictor.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/roymahlab789/champions-league-predictor/issues"
+  },
+  "homepage": "https://github.com/roymahlab789/champions-league-predictor#readme"
+}
