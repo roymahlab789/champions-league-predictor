@@ -1,7 +1,9 @@
 import express from 'express'
 import { authRouter } from './routes/authRouter.js'
+import { meRouter } from './routes/meRouter.js'
 import session from 'express-session'
 import'dotenv/config'
+
 
 
 const PORT = 8000
@@ -24,6 +26,8 @@ app.use(session({
 app.use(express.static('public'))
 
 app.use('/api/auth', authRouter)
+
+app.use('/api/auth', meRouter)
 
 
 app.listen(PORT, ()=> console.log(`Server connected on port ${PORT}`))

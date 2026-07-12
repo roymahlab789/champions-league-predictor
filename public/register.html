@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>הרשמה | מנחשים את ליגת האלופות</title>
+
+    <link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <main>
+      <form id="register-form">
+        <div class="container">
+          <h1>הרשמה</h1>
+
+          <p>מלא את הפרטים כדי ליצור משתמש חדש.</p>
+
+          <hr>
+
+          <label for="name">
+            <strong>שם מלא</strong>
+          </label>
+
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="הכנס שם מלא"
+            autocomplete="name"
+            required
+          >
+
+          <label for="username">
+            <strong>שם משתמש</strong>
+          </label>
+
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="הכנס שם משתמש"
+            autocomplete="username"
+            required
+          >
+
+          <label for="email">
+            <strong>דואר אלקטרוני</strong>
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="הכנס דואר אלקטרוני"
+            autocomplete="email"
+            required
+          >
+
+          <label for="password">
+            <strong>סיסמה</strong>
+          </label>
+
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="הכנס סיסמה"
+            autocomplete="new-password"
+            required
+          >
+
+          <label for="password-repeat">
+            <strong>אימות סיסמה</strong>
+          </label>
+
+          <input
+            type="password"
+            id="password-repeat"
+            name="password-repeat"
+            placeholder="הכנס את הסיסמה שוב"
+            autocomplete="new-password"
+            required
+          >
+
+          <hr>
+
+          <p>
+            ביצירת המשתמש אתה מסכים
+            <a href="/rules.html">לתנאי השימוש ולכללי המשחק</a>.
+          </p>
+
+          <button type="submit" class="registerbtn">
+            הרשמה
+          </button>
+
+          <p id="form-message" aria-live="polite"></p>
+        </div>
+
+        <div class="container signin">
+          <p>
+            כבר יש לך משתמש?
+            <a href="/login.html">התחבר כאן</a>.
+          </p>
+        </div>
+      </form>
+    </main>
+
+    <script src="/js/register.js"></script>
+  </body>
+</html>

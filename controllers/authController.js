@@ -78,7 +78,7 @@ let db
         db = await getDBConnection()
 
         const user = await db.get(`
-            SELECT * FROM users
+            SELECT id, password_hash FROM users
             WHERE username = ?`, [username])
 
         if (!user) {
@@ -107,4 +107,20 @@ let db
         }
     }
 
+}
+
+export async function logoutUser(req, res) {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({
+                error: 'Logout failed'
+            })
+        }
+
+        res.clearCookie('connect.sid')
+
+        return res.json({
+            message: 'Logged out'
+        })
+    })
 }
