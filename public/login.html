@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>התחברות</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+
+  <body>
+    <main>
+        <form id="login-form">
+        <div class="container">
+            <h1>התחברות</h1>
+
+            <p>הזן את פרטי המשתמש שלך.</p>
+
+            <hr>
+
+            <label for="username">
+            <strong>שם משתמש</strong>
+            </label>
+
+            <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="הכנס שם משתמש"
+            autocomplete="username"
+            required
+            >
+
+            <label for="password">
+            <strong>סיסמה</strong>
+            </label>
+
+            <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="הכנס סיסמה"
+            autocomplete="current-password"
+            required
+            >
+
+            <button type="submit" class="login-btn">
+            התחברות
+            </button>
+
+            <p id="form-message" aria-live="polite"></p>
+
+            <p>
+            עדיין אין לך משתמש?
+            <a href="/register.html">הירשם כאן</a>
+            </p>
+        </div>
+        </form>
+  </main>
+
+  <script src="/js/login.js"></script>
+</body>
+</html>
