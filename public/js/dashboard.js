@@ -1,14 +1,13 @@
 const userGreeting = document.getElementById('user-greeting')
+const tournamentName = document.getElementById('tournament-name')
+const tournamentStatus = document.getElementById('tournament-status')
 const logoutBtn = document.getElementById('logout-btn')
 
 
 async function loadCurrentUser() {
 
     try {
-        const res = await fetch('/api/auth/me', {
-            method: 'GET',
-            headers:{'Content-Type': 'application/json'},
-        })
+        const res = await fetch('/api/auth/me')
 
         const data = await res.json()
 
@@ -20,6 +19,7 @@ async function loadCurrentUser() {
         
 
          userGreeting.textContent = `שלום, ${data.name}`
+         loadCurrentTournament()
     } catch (err) {
         console.error(err)
     }
@@ -28,6 +28,7 @@ async function loadCurrentUser() {
 
 loadCurrentUser()
 
+// logout button logic
 logoutBtn.addEventListener('click', logoutUser)
 
 async function logoutUser() {
@@ -47,6 +48,32 @@ async function logoutUser() {
     } catch (err) {
         console.error('Logout error:', err)
     }
-
-    
 }
+
+// displaying tournament details
+
+async function loadCurrentTournament() {
+    try {
+        const res = await fetch('/api/tournaments/current')
+
+        const data = await res.json()
+
+        if (!res.ok) {
+            console.error(data.error)
+            return
+        }
+       
+        tournamentName.textContent = `${data.tournament.name} ${data.tournament.season}`
+
+         const statusTranslation = {
+             upcoming: 'טרם התחיל',
+             active: 'פעיל',
+             completed: 'הסתיים'
+        }
+
+        tournamentStatus.textContent = statusTranslation[data.tournament.status] || data.tournament.status
+    } catch (err) {
+        console.error(err)
+    }
+}
+
