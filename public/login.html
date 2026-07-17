@@ -1,64 +1,71 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
-  <head>
+<head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'">
+    <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>התחברות</title>
-
+    <title>התחברות | Champions Challenge</title>
     <link rel="stylesheet" href="/css/style.css">
-  </head>
-
-  <body>
-    <main>
-        <form id="login-form">
-        <div class="container">
-            <h1>התחברות</h1>
-
-            <p>הזן את פרטי המשתמש שלך.</p>
-
-            <hr>
-
-            <label for="username">
-            <strong>שם משתמש</strong>
-            </label>
-
-            <input
-            type="text"
-            id="username"
-            name="username"
-            placeholder="הכנס שם משתמש"
-            autocomplete="username"
-            required
-            >
-
-            <label for="password">
-            <strong>סיסמה</strong>
-            </label>
-
-            <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="הכנס סיסמה"
-            autocomplete="current-password"
-            required
-            >
-
-            <button type="submit" class="login-btn">
-            התחברות
-            </button>
-
-            <p id="form-message" aria-live="polite"></p>
-
-            <p>
-            עדיין אין לך משתמש?
-            <a href="/register.html">הירשם כאן</a>
-            </p>
+</head>
+<body class="app-body auth-page">
+    <main class="auth-shell">
+        <div class="brand auth-brand" aria-label="משחק הניחושים של ליגת האלופות">
+            <span class="brand-mark">CL</span>
+            <span class="brand-copy">
+                <strong>Champions Challenge</strong>
+                <small>משחק הניחושים</small>
+            </span>
         </div>
-        </form>
-  </main>
 
-  <script src="/js/login.js"></script>
+        <section class="auth-card" aria-labelledby="login-title">
+            <div class="auth-icon" aria-hidden="true">⚽</div>
+            <p class="eyebrow">ברוכים הבאים</p>
+            <h1 id="login-title">התחברות לחשבון</h1>
+            <p class="auth-description">התחבר כדי לעדכן ניחושים, לצפות בדירוג ולהשתתף בליגות הפרטיות שלך.</p>
+
+            <form id="login-form" class="auth-form">
+                <div class="form-field">
+                    <label for="username">שם משתמש</label>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        minlength="1"
+                        maxlength="20"
+                        autocomplete="username"
+                        autocapitalize="none"
+                        spellcheck="false"
+                        inputmode="text"
+                        dir="auto"
+                        required
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="password">סיסמה</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        maxlength="128"
+                        required
+                    >
+                </div>
+
+                <button class="primary-button auth-submit" type="submit">התחברות</button>
+            </form>
+
+            <p id="form-message" class="form-message auth-message" aria-live="polite"></p>
+
+            <p class="auth-footer">
+                עדיין אין לך חשבון?
+                <a href="/register.html">יצירת חשבון</a>
+            </p>
+        </section>
+    </main>
+
+    <script src="/js/login.js"></script>
 </body>
 </html>

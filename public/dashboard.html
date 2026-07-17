@@ -2,56 +2,158 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'">
+    <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מנחשים את ליגת האלופות</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
+<body class="app-body">
+    <div class="app-shell">
+        <header class="topbar">
+            <div class="brand" aria-label="משחק הניחושים של ליגת האלופות">
+                <span class="brand-mark">CL</span>
+                <span class="brand-copy">
+                    <strong>Champions Challenge</strong>
+                    <small>משחק הניחושים</small>
+                </span>
+            </div>
 
-<body>
-    <main>
-        <header>
-            <h1>משחק הניחושים של ליגת האלופות</h1>
-            <h2 id="user-greeting"></h2>
+            <button id="logout-btn" class="icon-button" type="button" aria-label="התנתקות">
+                יציאה
+            </button>
         </header>
 
-        <section>
-            <h2>הטורניר הנוכחי</h2>
-            <p id="tournament-name"></p>
-            <p id="tournament-status"></p>
-        </section>
+        <main class="page-content home-page">
+            <section class="profile-card">
+                <div class="profile-summary">
+                    <div class="pick-summary">
+                        <span class="pick-icon">🏆</span>
+                        <strong>טרם נבחר</strong>
+                        <small>הקבוצה הזוכה</small>
+                    </div>
 
-        <section>
-            <h2>יצירת ליגה חדשה</h2>
+                    <div class="user-summary">
+                        <div id="user-avatar" class="user-avatar">?</div>
+                        <h1 id="user-greeting">טוען משתמש...</h1>
+                    </div>
 
-            <form id="create-league-form">
+                    <div class="pick-summary">
+                        <span class="pick-icon">⚽</span>
+                        <strong>טרם נבחר</strong>
+                        <small>מלך השערים</small>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div>
+                        <strong>—</strong>
+                        <span>דירוג כללי</span>
+                    </div>
+                    <div>
+                        <strong>0</strong>
+                        <span>נקודות</span>
+                    </div>
+                    <div>
+                        <strong>0</strong>
+                        <span>תוצאות מדויקות</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card tournament-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">הטורניר הנוכחי</p>
+                        <h2 id="tournament-name">טוען טורניר...</h2>
+                    </div>
+                    <span id="tournament-status" class="status-pill"></span>
+                </div>
+            </section>
+
+            <section class="content-card next-match-card">
+                <p class="eyebrow">המשחק הבא</p>
+                <h2>המשחק הבא יופיע לאחר הוספת לוח המשחקים</h2>
+                <p>כאן יוצגו הקבוצות, שעת הפתיחה והניחוש שלך.</p>
+            </section>
+
+            <section class="groups-section">
+                <div class="section-heading groups-heading">
+                    <div>
+                        <p class="eyebrow">הקבוצות הפרטיות שלך</p>
+                        <h2>הליגות שלי</h2>
+                    </div>
+
+                    <button id="open-create-league-modal" class="text-button" type="button">
+                        <span aria-hidden="true">＋</span>
+                        יצירת ליגה
+                    </button>
+                </div>
+
+                <div id="leagues-list" class="league-list">
+                    <p class="empty-state">טוען ליגות...</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="bottom-nav" aria-label="ניווט ראשי">
+            <a class="nav-item active" href="/dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>בית</span>
+            </a>
+            <a class="nav-item" href="/predictions.html">
+                <span class="nav-icon">3:2</span>
+                <span>ניחושים</span>
+            </a>
+            <a class="nav-item" href="/leaderboard.html">
+                <span class="nav-icon">☷</span>
+                <span>טבלה</span>
+            </a>
+            <a class="nav-item" href="/leagues.html">
+                <span class="nav-icon">♜</span>
+                <span>ליגות</span>
+            </a>
+            <a class="nav-item" href="/rules.html">
+                <span class="nav-icon">▤</span>
+                <span>חוקים</span>
+            </a>
+        </nav>
+    </div>
+
+    <div id="create-league-modal" class="modal" hidden>
+        <div class="modal-backdrop" data-close-modal></div>
+
+        <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="create-league-title">
+            <button id="close-create-league-modal" class="modal-close" type="button" aria-label="סגירת החלון">×</button>
+
+            <p class="eyebrow">קבוצה פרטית חדשה</p>
+            <h2 id="create-league-title">יצירת ליגה</h2>
+            <p class="modal-description">לאחר היצירה ניתן יהיה לשלוח לחברים קישור הזמנה מתוך טבלת הדירוג.</p>
+
+            <form id="create-league-form" class="stacked-form">
                 <label for="league-name">שם הליגה</label>
-
                 <input
                     id="league-name"
                     name="leagueName"
                     type="text"
+                    minlength="1"
                     maxlength="50"
+                    inputmode="text"
+                    autocomplete="off"
+                    autocapitalize="words"
+                    enterkeyhint="done"
+                    spellcheck="false"
+                    dir="auto"
+                    aria-describedby="create-league-message"
                     required
                 >
 
-                <button type="submit">יצירת ליגה</button>
+                <button id="create-league-submit" class="primary-button" type="submit">יצירת ליגה</button>
             </form>
 
-            <p id="create-league-message"></p>
+            <p id="create-league-message" class="form-message" aria-live="polite"></p>
         </section>
-
-        <section>
-            <h2>הליגות שלי</h2>
-
-            <div id="leagues-list">
-                <p>טוען ליגות...</p>
-            </div>
-        </section>
-
-        <button id="logout-btn" type="button">
-            התנתקות
-        </button>
-    </main>
+    </div>
 
     <script src="/js/dashboard.js"></script>
 </body>

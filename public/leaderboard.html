@@ -2,30 +2,94 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'">
+    <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>טבלאות</title>
-
+    <title>טבלת דירוג</title>
     <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body>
-        <label for="league-select">בחר ליגה</label>
+</head>
+<body class="app-body">
+    <div class="app-shell">
+        <header class="topbar">
+            <a class="back-button" href="/dashboard.html" aria-label="חזרה לדף הבית">‹</a>
 
-        <select id="league-select">
-            <option value="">בחר ליגה</option>
-        </select>
+            <div class="brand" aria-label="משחק הניחושים של ליגת האלופות">
+                <span class="brand-mark">CL</span>
+                <span class="brand-copy">
+                    <strong>Champions Challenge</strong>
+                    <small>טבלת דירוג</small>
+                </span>
+            </div>
 
-        <button id="invite-friends-btn" type="button">
-            <img src="/images/invite_friend_icon.png" alt="An icon of a person with a + next to him"> 
-             הזמן חברים
-        </button>
+            <span class="topbar-spacer" aria-hidden="true"></span>
+        </header>
 
-        <section>
-            <h2 id="leaderboard-title">טבלת דירוג</h2>
-            <div id="leaderboard-list"></div>
-        </section>
+        <main class="page-content leaderboard-page">
+            <section class="league-picker-card">
+                <label class="sr-only" for="league-select">בחר ליגה</label>
+                <select id="league-select" class="league-select">
+                    <option value="">בחר ליגה</option>
+                </select>
 
-        <p id="invite-message"></p>
+                <div class="league-actions">
+                    <button id="favorite-league-btn" class="secondary-button" type="button">
+                        ☆ הגדרה כליגה ראשית
+                    </button>
+
+                    <button id="invite-friends-btn" class="primary-button compact" type="button">
+                        <img src="/images/invite_friend_icon.png" alt="">
+                        הזמנת חברים
+                    </button>
+                </div>
+
+                <p id="favorite-message" class="form-message" aria-live="polite"></p>
+                <p id="invite-message" class="form-message" aria-live="polite"></p>
+            </section>
+
+            <section class="leaderboard-card">
+                <div class="leaderboard-heading">
+                    <div>
+                        <p class="eyebrow">דירוג הקבוצה</p>
+                        <h1 id="leaderboard-title">טבלת דירוג</h1>
+                    </div>
+                </div>
+
+                <div class="leaderboard-columns" aria-hidden="true">
+                    <span>מיקום</span>
+                    <span>חבר קבוצה</span>
+                    <span>נקודות</span>
+                </div>
+
+                <div id="leaderboard-list" class="leaderboard-list">
+                    <p class="empty-state">טוען טבלה...</p>
+                </div>
+            </section>
+        </main>
+
+        <nav class="bottom-nav" aria-label="ניווט ראשי">
+            <a class="nav-item" href="/dashboard.html">
+                <span class="nav-icon">⌂</span>
+                <span>בית</span>
+            </a>
+            <a class="nav-item" href="/predictions.html">
+                <span class="nav-icon">3:2</span>
+                <span>ניחושים</span>
+            </a>
+            <a class="nav-item active" href="/leaderboard.html">
+                <span class="nav-icon">☷</span>
+                <span>טבלה</span>
+            </a>
+            <a class="nav-item" href="/leagues.html">
+                <span class="nav-icon">♜</span>
+                <span>ליגות</span>
+            </a>
+            <a class="nav-item" href="/rules.html">
+                <span class="nav-icon">▤</span>
+                <span>חוקים</span>
+            </a>
+        </nav>
+    </div>
+
     <script src="/js/leaderboard.js"></script>
-  </body>
+</body>
 </html>

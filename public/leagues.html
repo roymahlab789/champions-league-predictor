@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'"
+    >
+
+    <meta name="referrer" content="no-referrer">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>הליגות שלי | Champions Challenge</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="app-body">
+    <div class="app-shell">
+        <header class="topbar">
+            <a
+                class="back-button"
+                href="/dashboard.html"
+                aria-label="חזרה לדף הבית"
+            >
+                ‹
+            </a>
+
+            <div
+                class="brand"
+                aria-label="משחק הניחושים של ליגת האלופות"
+            >
+                <span class="brand-mark">CL</span>
+
+                <span class="brand-copy">
+                    <strong>Champions Challenge</strong>
+                    <small>הליגות שלי</small>
+                </span>
+            </div>
+
+            <span
+                class="topbar-spacer"
+                aria-hidden="true"
+            ></span>
+        </header>
+
+        <main class="page-content leagues-page">
+            <section class="leagues-hero content-card">
+                <p class="eyebrow">מתחרים עם חברים</p>
+
+                <h1>הליגות שלי</h1>
+
+                <p>
+                    כאן ניתן לצפות בכל הליגות שלך, להזמין חברים,
+                    לפתוח את טבלת הדירוג ולבחור ליגה ראשית.
+                </p>
+
+                <a
+                    class="primary-link"
+                    href="/dashboard.html"
+                >
+                    יצירת ליגה חדשה
+                </a>
+            </section>
+
+            <section class="leagues-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">הקבוצות שלך</p>
+                        <h2>ליגות שהצטרפת אליהן</h2>
+                    </div>
+
+                    <span
+                        id="leagues-count"
+                        class="leagues-count"
+                        aria-live="polite"
+                    ></span>
+                </div>
+
+                <div
+                    id="leagues-list"
+                    class="leagues-management-list"
+                    aria-live="polite"
+                >
+                    <article class="empty-state">
+                        <p>טוען ליגות...</p>
+                    </article>
+                </div>
+
+                <p
+                    id="leagues-message"
+                    class="form-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+            </section>
+        </main>
+
+        <nav
+            class="bottom-nav"
+            aria-label="ניווט ראשי"
+        >
+            <a
+                class="nav-item"
+                href="/dashboard.html"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>בית</span>
+            </a>
+
+            <a
+                class="nav-item"
+                href="/predictions.html"
+            >
+                <span class="nav-icon">3:2</span>
+                <span>ניחושים</span>
+            </a>
+
+            <a
+                class="nav-item"
+                href="/leaderboard.html"
+            >
+                <span class="nav-icon">☷</span>
+                <span>טבלה</span>
+            </a>
+
+            <a
+                class="nav-item active"
+                href="/leagues.html"
+                aria-current="page"
+            >
+                <span class="nav-icon">♜</span>
+                <span>ליגות</span>
+            </a>
+
+            <a
+                class="nav-item"
+                href="/rules.html"
+            >
+                <span class="nav-icon">▤</span>
+                <span>חוקים</span>
+            </a>
+        </nav>
+    </div>
+
+    <script src="/js/leagues.js"></script>
+</body>
+</html>

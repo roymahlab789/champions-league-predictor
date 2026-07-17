@@ -1,3 +1,5 @@
+import helmet from 'helmet'
+import { rateLimit } from 'express-rate-limit'
 import express from 'express'
 import { authRouter } from './routes/authRouter.js'
 import { meRouter } from './routes/meRouter.js'
@@ -12,7 +14,23 @@ const PORT = 8000
 
 const app = express()
 
-app.use(express.json())
+app.use(helmet())
+
+app.use(express.json({
+    limit: '10kb'
+}))
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+        error: 'Too many requests. Please try again later.'
+    }
+})
+
+app.use('/api', apiLimiter)
 
 app.use(session({
     secret: process.env.SESSION_SECRET,

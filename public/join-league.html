@@ -2,18 +2,36 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'">
+    <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>הצטרפות לליגה</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <h1>הזמנה להצטרפות לליגה</h1>
+<body class="app-body join-page">
+    <main class="join-shell">
+        <div class="brand join-brand" aria-label="משחק הניחושים של ליגת האלופות">
+            <span class="brand-mark">CL</span>
+            <span class="brand-copy">
+                <strong>Champions Challenge</strong>
+                <small>משחק הניחושים</small>
+            </span>
+        </div>
 
-    <p id="join-message">טוען הזמנה...</p>
+        <section class="join-card">
+            <div class="join-icon" aria-hidden="true">＋</div>
+            <p class="eyebrow">הזמנה פרטית</p>
+            <h1>הצטרפות לליגה</h1>
+            <p id="join-message" class="join-message">טוען הזמנה...</p>
 
-    <button id="confirm-join-btn" type="button">
-         הצטרפות לליגה
-    </button>
+            <button id="confirm-join-btn" class="primary-button" type="button">
+                הצטרפות לליגה
+            </button>
+
+            <a class="secondary-link" href="/dashboard.html">חזרה לדף הבית</a>
+        </section>
+    </main>
+
     <script src="/js/joinLeague.js"></script>
 </body>
 </html>
