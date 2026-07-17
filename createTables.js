@@ -10,7 +10,9 @@ async function createTables() {
     username TEXT UNIQUE NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password_hash TEXT NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    favorite_league_id INTEGER,
+    FOREIGN KEY (favorite_league_id) REFERENCES leagues(id)
     );
     
     CREATE TABLE IF NOT EXISTS tournaments(

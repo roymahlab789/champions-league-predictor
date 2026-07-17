@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>טבלאות</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+  </head>
+  <body>
+        <label for="league-select">בחר ליגה</label>
+
+        <select id="league-select">
+            <option value="">בחר ליגה</option>
+        </select>
+
+        <button id="invite-friends-btn" type="button">
+            <img src="/images/invite_friend_icon.png" alt="An icon of a person with a + next to him"> 
+             הזמן חברים
+        </button>
+
+        <section>
+            <h2 id="leaderboard-title">טבלת דירוג</h2>
+            <div id="leaderboard-list"></div>
+        </section>
+
+        <p id="invite-message"></p>
+    <script src="/js/leaderboard.js"></script>
+  </body>
+</html>

@@ -1,6 +1,10 @@
+// global variables
 const loginForm = document.getElementById('login-form')
 const formMessage = document.getElementById('form-message')
+const params = new URLSearchParams(window.location.search)
+const redirect = params.get('redirect')
 
+// event listener
 loginForm.addEventListener('submit', loginUser)
 
 async function loginUser(e) {
@@ -40,9 +44,9 @@ async function loginUser(e) {
         }
 
         formMessage.textContent = 'ההתחברות בוצעה בהצלחה מעביר אותך לדף הבית'
-
+        
         setTimeout(() => {
-            window.location.href ='/dashboard.html'
+            window.location.href = redirect || '/dashboard.html'
         }, 1500)
     } catch (err) {
         console.error(err)

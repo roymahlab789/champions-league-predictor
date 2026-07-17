@@ -1,3 +1,4 @@
+import { error } from "node:console";
 import { getDBConnection } from "../db/db.js";
 import crypto from 'node:crypto'
 
@@ -40,6 +41,13 @@ export async function createLeague(req, res) {
                 [result.lastID, ownerId]
             )
 
+            await db.run(
+                `UPDATE users
+                SET favorite_league_id = COALESCE(favorite_league_id, ?)
+                WHERE id = ?`, 
+                [result.lastID, ownerId]
+            )
+
             return res.status(201).json({
                 league: {
                     id: result.lastID,
@@ -67,17 +75,25 @@ export async function getMyLeagues (req, res) {
 
         const leagues = await db.all(
         `SELECT
-        l.id,
-        l.name,
-        l.owner_id,
-        l.created_at,
-        lm.joined_at
+            l.id,
+            l.name,
+            l.owner_id,
+            l.invite_code,
+            l.created_at,
+            lm.joined_at,
+            CASE
+                WHEN l.id = u.favorite_league_id THEN 1
+                ELSE 0
+            END AS is_favorite
         FROM league_members AS lm
         JOIN leagues AS l
         ON l.id = lm.league_id
-        WHERE lm.user_id = ?`,
-        [userId]   
-        )
+        JOIN users AS u
+        ON u.id = lm.user_id
+        WHERE lm.user_id = ?
+        ORDER BY is_favorite DESC, lm.joined_at ASC`,
+        [userId]
+    )
 
         return res.json({ leagues })
     } catch (err) {
@@ -91,7 +107,7 @@ export async function getMyLeagues (req, res) {
             await db.close()
         }
     }
-    }
+}
 
     export async function joinLeague(req, res) {
         let db
@@ -152,6 +168,14 @@ export async function getMyLeagues (req, res) {
                 [league.id, userId]
             )
 
+                await db.run(
+
+                `UPDATE users
+                SET favorite_league_id = COALESCE(favorite_league_id, ?)
+                WHERE id = ?`,
+                [league.id, userId]
+            )
+
             return res.status(201).json({
                 message: 'League joined successfully',
                 league
@@ -161,6 +185,57 @@ export async function getMyLeagues (req, res) {
 
             return res.status(500).json({
                 error: 'Failed to join league'
+            })
+        } finally {
+            if (db) {
+                await db.close()
+            }
+        }
+    }
+
+    export async function getLeagueLeaderboard(req, res) {
+        const leagueId = req.params.leagueId
+        const userId = req.session.userId
+        let db
+
+        try {
+            db = await getDBConnection()
+            const membership = await db.get(
+                `
+                SELECT l.id, l.name FROM leagues AS l
+                JOIN league_members AS lm
+                ON lm.league_id = l.id
+                WHERE l.id = ? AND lm.user_id = ?`,
+                [leagueId, userId]
+            )
+
+            if (!membership) {
+                return res.status(403).json({
+                    error: 'You are not a member of this league'
+                })
+            }
+
+            const standings = await db.all(`
+                SELECT
+                u.id AS user_id,
+                u.name,
+                0 AS points,
+                lm.joined_at
+                FROM league_members AS lm
+                JOIN users AS u
+                ON u.id = lm.user_id
+                WHERE lm.league_id = ?
+                ORDER BY lm.joined_at ASC`,
+                [leagueId]
+            )
+            return res.json({
+                league: membership,
+                standings
+            })
+        } catch (err) {
+            console.error('Get league leaderboard error:', err)
+            return res.status(500).json({
+                error: 'Failed to get leaderboard'
             })
         } finally {
             if (db) {
