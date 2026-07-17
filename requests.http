@@ -1,0 +1,23 @@
+### Login as second user
+POST http://localhost:8000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "L",
+  "password": "Rm123456789012345"
+}
+
+###
+
+### Join league
+POST http://localhost:8000/api/leagues/join
+Content-Type: application/json
+
+{
+  "inviteCode": "071277"
+}
+
+###
+
+### Get joined leagues
+GET http://localhost:8000/api/leagues

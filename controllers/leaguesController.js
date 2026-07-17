@@ -57,3 +57,114 @@ export async function createLeague(req, res) {
         }
     }
 }
+
+export async function getMyLeagues (req, res) {
+    let db
+    const userId = req.session.userId
+
+    try {
+        db = await getDBConnection()
+
+        const leagues = await db.all(
+        `SELECT
+        l.id,
+        l.name,
+        l.owner_id,
+        l.created_at,
+        lm.joined_at
+        FROM league_members AS lm
+        JOIN leagues AS l
+        ON l.id = lm.league_id
+        WHERE lm.user_id = ?`,
+        [userId]   
+        )
+
+        return res.json({ leagues })
+    } catch (err) {
+        console.error('Get leagues error:', err)
+
+        return res.status(500).json({
+            error: 'Failed to retrieve leagues'
+        })
+    } finally {
+        if (db) {
+            await db.close()
+        }
+    }
+    }
+
+    export async function joinLeague(req, res) {
+        let db
+
+        let { inviteCode } = req.body
+        const userId = req.session.userId
+
+        if (!inviteCode) {
+            return res.status(400).json({
+                error: 'Invite code is required'
+            })
+        }
+
+        if (typeof inviteCode !== 'string') {
+            return res.status(400).json({
+                error: 'Invite code must be a string'
+            })
+        }
+
+        inviteCode = inviteCode.trim().toUpperCase()
+
+        if (!inviteCode) {
+            return res.status(400).json({
+                error: 'Invite code cannot contain only white spaces'
+            })
+        }
+
+        try {
+            db = await getDBConnection()
+
+            const league = await db.get(`
+                SELECT id, name, invite_code
+                FROM leagues
+                WHERE invite_code = ?`, [inviteCode])
+
+                if (!league) {
+                    return res.status(404).json({
+                        error: 'League not found'
+                    })
+                }
+
+                const existingMember = await db.get(`
+                    SELECT id FROM league_members
+                    WHERE league_id = ? AND user_id = ?`, 
+                    [league.id, userId]
+                )
+
+                if (existingMember) {
+                    return res.status(409).json({
+                        error: 'User is already a member of this league'
+                    })
+                }
+
+                await db.run(
+                    `
+                    INSERT INTO league_members(league_id, user_id)
+                    VALUES(?, ?)`,
+                [league.id, userId]
+            )
+
+            return res.status(201).json({
+                message: 'League joined successfully',
+                league
+            })
+        } catch (err) {
+            console.error('Join league error:', err)
+
+            return res.status(500).json({
+                error: 'Failed to join league'
+            })
+        } finally {
+            if (db) {
+                await db.close()
+            }
+        }
+    }
